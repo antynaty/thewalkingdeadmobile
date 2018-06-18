@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native'; 
 
 import EditarPerfil from './EditarPerfil';
+import MisMascotas from './MisMascotas';
+import MisPaseos from './MisPaseos';
 
 class Profile extends React.Component {
   static navigationOptions = {
@@ -24,13 +26,13 @@ class Profile extends React.Component {
                 </TouchableOpacity>
                 <TouchableOpacity  
                   underlayColor='#fff'
-                  onPress={()=>  this.props.navigation.navigate('EditarPerfil') }
+                  onPress={()=>  this.props.navigation.navigate('MisPaseos') }
                 >
                   <Text> Mis Paseos </Text>
                 </TouchableOpacity>
                 <TouchableOpacity  
                   underlayColor='#fff'
-                  onPress={()=>  this.props.navigation.navigate('EditarPerfil') }
+                  onPress={()=>  this.props.navigation.navigate('MisMascotas') }
                 >
                   <Text> Mis Mascotas </Text>
                 </TouchableOpacity>      
