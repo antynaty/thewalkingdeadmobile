@@ -9,7 +9,8 @@ import {
 import {createStackNavigator} from 'react-navigation';
 
 // import Splash from './src/screens/Splash/Splash';
-import Login from './src/screens/Login/Login';  
+import Login from './src/screens/Login/Login'; 
+import EditarPerfil from './src/screens/Profile/EditarPerfil';
 import DrawerNavigator from './src/screens/DrawerNavigator'; 
 
 export default class App extends React.Component {
@@ -26,7 +27,13 @@ const RootStack = createStackNavigator({
   // },
   Login : {
     screen : Login
-  },  
+  }, 
+  Perfil : {
+    screen : Perfil
+  },
+  EditarPerfil : {
+    screen : EditarPerfil
+  }, 
   DrawerNavigator :{
     screen : DrawerNavigator,
     navigationOptions: {
