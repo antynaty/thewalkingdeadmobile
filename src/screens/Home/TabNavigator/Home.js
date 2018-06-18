@@ -12,8 +12,7 @@ class Home extends React.Component {
   }
 } 
 
-export default Home;
- 
+export default Home; 
 
 const styles = StyleSheet.create({
   container: {

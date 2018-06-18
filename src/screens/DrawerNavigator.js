@@ -14,7 +14,7 @@ const InnerStackNavigator = createStackNavigator({ // en HOME las tabs de abajo
 });
 const AppDrawerNavigator = createDrawerNavigator({  // apunta a profile
     Profile: {
-      screen: InnerStackNavigator,
+      screen: Profile,
     },
     Notification:{
         screen: InnerStackNavigator

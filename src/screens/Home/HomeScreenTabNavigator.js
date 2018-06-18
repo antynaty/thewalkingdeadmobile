@@ -28,8 +28,7 @@ export default class AppTabNavigator extends React.Component {
     }
   }
 
-const HomeScreenTabNavigator = createBottomTabNavigator ({
-  
+const HomeScreenTabNavigator = createBottomTabNavigator ({ 
     Home : {
         screen: Home,
         navigationOptions: ({navigation}) => ({
