@@ -50,6 +50,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1, 
   },
+  map:{
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    position: 'absolute',
+
+  },
   header:{
     height: '45%',
     alignItems:'center',
