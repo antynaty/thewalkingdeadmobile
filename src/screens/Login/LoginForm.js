@@ -38,6 +38,9 @@ class LoginForm extends React.Component {
                 <View style={styles.buttonContainer}>
                     <Button title= "INGRESAR" onPress={()=> this.props.navigation.navigate('DrawerNavigator')}/> 
                 </View>
+                <View style={styles.buttonContainer}>
+                    <Button title= "REGISTRAR" onPress={()=> this.props.navigation.navigate('DrawerNavigator')}/> 
+                </View>
             </KeyboardAvoidingView>
         </View>
     );

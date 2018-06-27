@@ -10,12 +10,14 @@ class Login extends React.Component {
   render() {
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
+      <Text style={styles.title}> The Walking Doge</Text>
             <View style={styles.logoContainer}>
+            
                 <Image
                   style={styles.logo}
                   source={require('../../images/doge.png')} 
                 />
-            <Text style={styles.title}> The Walking Doge</Text>
+            
             </View>
             <View style={styles.infoContainer}>
                 <LoginForm  navigation={this.props.navigation} />
@@ -37,7 +39,8 @@ const styles = StyleSheet.create({
   logoContainer:{
     alignItems: 'center',
     flexGrow: 1,
-    justifyContent: 'center'
+    //justifyContent: 'center',
+    marginTop: 70
   },
   logo:{
     width: 250, // ancho
@@ -45,8 +48,8 @@ const styles = StyleSheet.create({
   },
   title:{
     textAlign: 'center',
-    fontSize: 18,
-    marginTop: 5,
+    fontSize: 35,
+    marginTop: 20,
     opacity:0.9
   }
  

@@ -3,7 +3,10 @@ import { StyleSheet, Text, View } from 'react-native';
  
 import MapView from 'react-native-maps'
 
+
+
 class MisPaseos extends React.Component { 
+  
   render() {
     return ( 
       <View style={styles.container}> 
