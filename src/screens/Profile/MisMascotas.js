@@ -1,14 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Button } from 'react-native';  
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, FlatList, } from 'react-native';  
 import { stringify } from 'querystring'; 
+
+
 import { 
   Container, 
-  Content, 
-  Header,
-  Left,
-  Right,
-  Card,
-  CardItem
+  Content,  
 } from 'native-base'; 
 class MisMascotas extends React.Component { 
   constructor (){
@@ -23,8 +20,12 @@ class MisMascotas extends React.Component {
   componentWillMount (){
 
   }
+  componentDidlMount (){
+    this.listarMascota();
+  }
   listarMascota (){
-      const url = 'http://23.45.42.23:3001/perro/all/1'
+    // 192.168.1.159  23.45.42.23
+      const url = 'http://192.168.1.159:3001/perro/all/1'
       fetch(url)
       .then((response) => response.json() )
       .then( ( responseJson)=> {
@@ -57,19 +58,48 @@ class MisMascotas extends React.Component {
     collection.raza=this.state.raza
     console.warn(collection);
  
-    const url = 'http://23.45.42.23:3001/user/create/perro/1/'
+    const url = 'http://192.168.1.159:3001/user/create/perro/1/'
     fetch(url, {
       method: 'POST',
       body: JSON.stringify(collection),
-      headers: new Header({
-        'Content-Type': 'application/json'
-      })
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
     }) 
     .then((response) => response.json() )
     .catch((error) => { console.log(error) })
   
   }
-   
+  renderItem = ({item}) => {
+    return (
+
+        <View style={styles.flatItem}> 
+            <View style={styles.flatContent}>
+ 
+                <Text style={styles.itemTextName}>
+                    {item.nombre}
+                </Text>
+ 
+                <Text style={styles.itemTextAbout}>
+                    {item.Chip}
+                </Text>
+ 
+                <Text style={styles.itemTextAbout}>
+                    {item.raza}
+                </Text>
+            </View> 
+        </View>
+    ) 
+  }
+  renderSeparator = () => {
+      return ( 
+          <View
+              style={{ height:2, width:'100%', backgroundColor:'white' }}
+          >
+          </View>
+      )
+  } 
   render() {
     return ( 
       <Container style={styles.container}> 
@@ -77,23 +107,28 @@ class MisMascotas extends React.Component {
 
               <TouchableOpacity   underlayColor='#fff' onPress={()=> this.listarMascota() }  >
                   <Text> Listar Mascota </Text>
+
               </TouchableOpacity>
+              {this.listMascota} 
+              <FlatList  
+                    data = {this.state.dataSource}
+                    renderItem={this.renderItem}
+                    keyExtractor={(item, index) => index}
+                    ItemSeparatorComponent={this.renderSeparator}
+              />  
               <View style={styles.formMascota}>
                 <Text> Crear Mascotas</Text> 
                 <TextInput placeholder="Nombre" placeholderTextColor="white"
-                  onChangeText={(text)=>valoresMascota(text,'nombre')} 
-                />
-                
+                  onChangeText={(text)=>this.valoresMascota(text,'nombre')} 
+                /> 
                 <TextInput placeholder="Chip"  placeholderTextColor="white"
-                  onChangeText={(text)=>valoresMascota(text,'Chip')}
+                  onChangeText={(text)=>this.valoresMascota(text,'Chip')}
                 
-                />
-                
+                /> 
                 <TextInput placeholder="Raza"  placeholderTextColor="white"
-                  onChangeText={(text)=>valoresMascota(text,'raza')}
+                  onChangeText={(text)=>this.valoresMascota(text,'raza')}
                 
-                />
-                
+                /> 
                 <TouchableOpacity  style={styles.subBtn}
                   onPress={()=> this.postMascota() }
                 >
@@ -122,8 +157,8 @@ const styles = StyleSheet.create({
     backgroundColor:'#014601',
     justifyContent:'center',
     alignItems:'center',
-    height:40,
-    color:'white'
-
+    height:40
+  },
+  showMascota:{
   }
 });

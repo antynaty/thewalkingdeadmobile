@@ -18,19 +18,29 @@ class WalkCard extends React.Component {
     }
     renderItem = ({item}) => {
         return (
-            <View style={styles.flatItem}>
-                <Image style={{ width: 100, height:100}}
-                    source = {{uri: item.picture }} />
-                <Image style={{ width: 100, height:100}}
-                    source = {{uri: item.picture }} />
-                <Image style={{ width: 100, height:100}}
-                    source = {{uri: item.picture }} />        
-                <View style={styles.flatContent}> 
+
+            <View style={styles.flatItem}> 
+                <View style={styles.flatContent}>
+                    <Text style={styles.itemTextName}>
+                        FOTOS FALTAN AGREGAR
+                    </Text> 
+                    <Text style={styles.itemTextName}>
+                        Nombre Paseador:
+                    </Text>
                     <Text style={styles.itemTextName}>
                         {item.paseador}
                     </Text>
                     <Text style={styles.itemTextAbout}>
+                        Comentario paseo:
+                    </Text>
+                    <Text style={styles.itemTextAbout}>
                         {item.comentario}
+                    </Text>
+                    <Text style={styles.itemTextAbout}>
+                        Modulo del paseo:
+                    </Text>
+                    <Text style={styles.itemTextAbout}>
+                        {item.horario}
                     </Text>
                 </View> 
             </View>
@@ -48,7 +58,20 @@ class WalkCard extends React.Component {
 
     }
     componentDidMount (){
-        const url = 'http://23.45.42.23:3001/paseo/all'
+        this.getPaseo();  
+    }
+
+    // componentDidMount (){
+    //     const url = 'http://192.168.1.159:3001/perro/all'
+    //     fetch(url)
+    //     .then((response) => response.json() ) 
+    //     .catch((error) => {
+    //         console.log(error)
+    //     })  
+    // }
+
+    getPaseo (){
+        const url = 'http://192.168.1.159:3001/paseo/dueno/1'
         fetch(url)
         .then((response) => response.json() )
         .then( ( responseJson)=> {
@@ -59,9 +82,16 @@ class WalkCard extends React.Component {
             console.log(error)
         })  
     }
-    render() {
+    render() { 
         return (
             <View style={styles.container}> 
+
+                {/* <View  >
+                    <Text> {this.state.dataSource.comentario} </Text>
+                    <Text> {this.state.dataSource.horario} </Text>
+                    <Text>{this.state.dataSource.paseador} </Text>
+                </View  > */}
+ 
                 <FlatList  
                     data = {this.state.dataSource}
                     renderItem={this.renderItem}
