@@ -71,7 +71,7 @@ class WalkCard extends React.Component {
     // }
 
     getPaseo (){
-        const url = 'http://192.168.1.159:3001/paseo/dueno/1'
+        const url = 'http://192.168.1.115:3001/paseo/dueno/1'
         fetch(url)
         .then((response) => response.json() )
         .then( ( responseJson)=> {

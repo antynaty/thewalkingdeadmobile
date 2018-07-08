@@ -109,7 +109,7 @@ class MisMascotas extends React.Component {
                   <Text> Listar Mascota </Text>
 
               </TouchableOpacity>
-              {this.listMascota} 
+              {/* {this.listMascota}  */}
               <FlatList  
                     data = {this.state.dataSource}
                     renderItem={this.renderItem}

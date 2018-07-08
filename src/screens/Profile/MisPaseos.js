@@ -1,16 +1,72 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native'; 
- 
+import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native'; 
+import { stringify } from 'querystring'; 
+
 import MapView from 'react-native-maps'
 
 
 
 class MisPaseos extends React.Component { 
+  constructor (){
+    super()
+    this.state = {
+        dataSource:[],
+        comentario:'',
+        horario:'',
+    }
+}
+  componentWillMount (){
+
+  }
+  componentDidlMount (){
+    this.postPaseo();
+  }
+  postPaseo(){
+    let collection = {}
+    collection.comentario=this.state.comentario,
+    collection.horario=this.state.horario 
+
+    console.warn(collection);
+ 
+    const url = 'http://192.168.1.159:3001/1 '
+    fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(collection),
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    }) 
+    .then((response) => response.json() )
+    .catch((error) => { console.log(error) })
   
+  }
+
   render() {
     return ( 
       <View style={styles.container}> 
-          <MapView
+        <Text> Crear Paseo </Text>
+
+        <View style={styles.formMascota}>
+          <Text> Crear Paseo </Text>
+          <TextInput placeholder="Modulo" placeholderTextColor="black"
+            onChangeText={(text)=>this.valoresMascota(text,'horario')} 
+          /> 
+          <TextInput placeholder="Dia"  placeholderTextColor="black"
+            onChangeText={(text)=>this.valoresMascota(text,'dia')}
+          
+          />  
+          <TextInput placeholder="Comentario"  placeholderTextColor="black"
+            onChangeText={(text)=>this.valoresMascota(text,'comentario')}
+          
+          />  
+          <TouchableOpacity  style={styles.subBtn}
+            onPress={()=> this.postPaseo() }
+          >
+            <Text> Crear Paseo </Text>
+          </TouchableOpacity> 
+        </View>
+          {/* <MapView
             style={styles.map}
             initialRegion={{
               latitude: 37.78825,
@@ -25,7 +81,7 @@ class MisPaseos extends React.Component {
               }}
               />
 
-            </MapView>
+            </MapView> */}
            
       </View>
     );
