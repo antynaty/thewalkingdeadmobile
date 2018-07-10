@@ -13,6 +13,7 @@ import createStackNavigator from 'react-navigation';
 import Login from './Login';
 import * as firebase from 'firebase'; 
 import { stringify } from 'querystring'; 
+import { timingSafeEqual } from 'crypto';
 
 class LoginForm extends React.Component {
     static navigationOptions = {
@@ -71,7 +72,10 @@ class LoginForm extends React.Component {
             });
             
             setTimeout(()=>{
-                this.props.navigation.navigate('DrawerNavigator')
+                this.props.navigation.navigate('DrawerNavigator',{
+                    email: this.state.email,
+                    password: this.state.password, 
+                });
             }, 100)
                 }
                 else {

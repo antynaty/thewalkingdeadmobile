@@ -23,10 +23,16 @@ class MisMascotas extends React.Component {
   componentDidlMount (){
     this.listarMascota();
   }
-  listarMascota (){
+  listarMascota (correo,contrasena){
     // 192.168.1.159  23.45.42.23
-      const url = 'http://192.168.1.159:3001/perro/all/1'
-      fetch(url)
+      const url = 'http://192.168.1.159:3001/perro/all/'
+      fetch(url, {
+        method: 'GET',
+        headers: {
+          email: correo,
+          password: contrasena,
+        },
+      })
       .then((response) => response.json() )
       .then( ( responseJson)=> {
           this.setState({
@@ -101,11 +107,14 @@ class MisMascotas extends React.Component {
       )
   } 
   render() {
+    const {navigation} = this.props;
+      const email = navigation.getParam('email','NO-EMAIL');
+      const password = navigation.getParam('password','NO-PASSWORD');
     return ( 
       <Container style={styles.container}> 
               <Text> Mis Mascotas</Text>
 
-              <TouchableOpacity   underlayColor='#fff' onPress={()=> this.listarMascota() }  >
+              <TouchableOpacity   underlayColor='#fff' onPress={()=> this.listarMascota(email,password) }  >
                   <Text> Listar Mascota </Text>
 
               </TouchableOpacity>

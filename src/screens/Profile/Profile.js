@@ -4,13 +4,18 @@ import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
 import EditarPerfil from './EditarPerfil';
 import MisMascotas from './MisMascotas';
 import MisPaseos from './MisPaseos';
+import LoginForm from '../Login/LoginForm';
 
 class Profile extends React.Component {
   static navigationOptions = {
     header : null 
   }
   render() {
+      const {navigation} = this.props;
+      const email = navigation.getParam('email','NO-EMAIL');
+      const password = navigation.getParam('password','NO-PASSWORD');
     return ( 
+      
       <View style={styles.container}>
           <View style={styles.header}>
               <View style={styles.fotoContainer}> 
@@ -20,19 +25,31 @@ class Profile extends React.Component {
           <View style={styles.center}>  
                 <TouchableOpacity  
                   underlayColor='#fff'
-                  onPress={()=>  this.props.navigation.navigate('EditarPerfil') }
+                  onPress={()=>  this.props.navigation.navigate('EditarPerfil',{
+                    email: email,
+                    password: password, 
+                  })
+                 }
                 >
                   <Text> Editar Perfil </Text>
                 </TouchableOpacity>
                 <TouchableOpacity  
                   underlayColor='#fff'
-                  onPress={()=>  this.props.navigation.navigate('MisPaseos') }
+                  onPress={()=>  this.props.navigation.navigate('MisPaseos',{
+                    email: email,
+                    password: password, 
+                  }) 
+                }
                 >
                   <Text> Mis Paseos </Text>
                 </TouchableOpacity>
                 <TouchableOpacity  
                   underlayColor='#fff'
-                  onPress={()=>  this.props.navigation.navigate('MisMascotas') }
+                  onPress={()=>  this.props.navigation.navigate('MisMascotas',{
+                    email: email,
+                    password: password, 
+                  })
+                 }
                 >
                   <Text> Mis Mascotas </Text>
                 </TouchableOpacity>      
