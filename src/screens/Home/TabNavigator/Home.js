@@ -3,7 +3,10 @@ import {
   StyleSheet, 
   Text,
   AppRegistry,
-  FlatList
+  FlatList,
+  View,
+  Image,
+  TouchableOpacity
 } from 'react-native';
 import { 
     Container, 
@@ -14,21 +17,31 @@ import {
     Card,
     CardItem
   } from 'native-base'; 
+ 
 import { Ionicons } from '@expo/vector-icons'; 
 import {createStackNavigator} from 'react-navigation'; 
 import WalkCard from './WalkCard';
 
 export default class Home extends React.Component {
-
+ 
+    constructor (){
+        super()
+        this.state = {
+            dataSource:[],  
+        }
+    }
+     
     render() {
         return (
-            <Container >  
-                <Content> 
-                    <Text style={styles.titulo} > Fotos de los últimos paseos </Text> 
+            <View >  
+                <View> 
+                    <Text style={styles.titulo} > Listado de paseos  </Text> 
+
                     < WalkCard  navigation={this.props.navigation}/>
-                </Content>
-                     
-            </Container>
+
+                </View> 
+
+            </View>
             
         );
     }
@@ -44,4 +57,4 @@ const styles = StyleSheet.create({
     }
 });
 AppRegistry.registerComponent('App', () => App);
-
+ 

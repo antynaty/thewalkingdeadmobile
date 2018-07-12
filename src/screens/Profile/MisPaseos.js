@@ -113,8 +113,8 @@ class MisPaseos extends React.Component {
   render() {
     return ( 
       <View style={styles.container}> 
-        <Text> Crear Paseo</Text>
-        <View style={styles.row}>
+        <Text style={styles.titulo} > Crear Paseo</Text>
+        <View style={styles.column}>
           <View style={styles.cell}>
             <ModalDropdown ref="dropdown_modulo"
                           style={styles.modulo}
@@ -122,20 +122,6 @@ class MisPaseos extends React.Component {
                           defaultIndex={-1}
                           defaultValue={this.state.valorModulo}
                           onSelect={(idx, value) => this._dropdown_modulo_onSelect(idx, value)}
-            />
-            <ModalDropdown ref="dropdown_dia"
-                          style={styles.dia}
-                          options={modalOptionsDia}
-                          defaultIndex={-1}
-                          defaultValue={this.state.valorModulo}
-                          onSelect={(idx, value) => this._dropdown_dia_onSelect(idx, value)}
-            />
-            <ModalDropdown ref="dropdown_mascota"
-                          style={styles.mascota}
-                          options={modalOptionsMascota}
-                          defaultIndex={-1}
-                          defaultValue={this.state.valorMascota}
-                          onSelect={(idx, value) => this._dropdown_mascota_onSelect(idx, value)}
             />
             <TouchableOpacity onPress={() => {
               this.refs.dropdown_modulo.select(0);
@@ -145,14 +131,50 @@ class MisPaseos extends React.Component {
               </Text>
             </TouchableOpacity>
           </View>
+          <View style={styles.cell}>
+            <ModalDropdown ref="dropdown_dia"
+                        style={styles.dia}
+                        options={modalOptionsModule}
+                        defaultIndex={-1}
+                        defaultValue={this.state.valorModulo}
+                        onSelect={(idx, value) => this._dropdown_dia_onSelect(idx, value)}
+            />
+            <TouchableOpacity onPress={() => {
+              this.refs.dropdown_dia.select(0);
+            }}>
+              <Text style={styles.textButton}>
+                Crear Paseo
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.cell}>
+            <ModalDropdown ref="dropdown_mascota"
+                          style={styles.mascota}
+                          options={modalOptionsModule}
+                          defaultIndex={-1}
+                          defaultValue={this.state.valorMascota}
+                          onSelect={(idx, value) => this._dropdown_mascota_onSelect(idx, value)}
+            />
+            <TouchableOpacity onPress={() => {
+              this.refs.dropdown_mascota.select(0);
+            }}>
+              <Text style={styles.textButton}>
+                Crear Paseo
+              </Text>
+            </TouchableOpacity>
+
+          </View>
         </View>
+
+      <View>
         <TouchableOpacity onPress={()=> this.listarPaseos()}
         > 
-          Listar Paseos
+          <Text style={styles.titulo} >
+              Listar Paseo
+          </Text> 
         </TouchableOpacity>
-        <View>
-        </View>
       </View>
+    </View>
     );
   }
 } 
@@ -164,9 +186,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,  
   },
-  row: {
+  titulo:{
+    textAlign: 'center',
+    fontSize: 21,
+    marginTop: 5,
+    opacity:0.9,
+    backgroundColor: '#8CC540'
+  }, 
+  column: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'column',
   },
   cell: {
     flex: 1,
