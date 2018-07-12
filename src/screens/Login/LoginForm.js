@@ -12,8 +12,7 @@ import {
 import createStackNavigator from 'react-navigation';
 import Login from './Login';
 import * as firebase from 'firebase'; 
-import { stringify } from 'querystring'; 
-import { timingSafeEqual } from 'crypto';
+import { stringify } from 'querystring';  
 
 class LoginForm extends React.Component {
     static navigationOptions = {
@@ -102,13 +101,20 @@ class LoginForm extends React.Component {
     }
 
     async login(){
+
+      const email = this.state.email;
+      const password =  this.state.password;
         try {
             await firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
             this.setState({
             response: 'usario conectado'
             })
             setTimeout(()=>{
-                this.props.navigation.navigate('DrawerNavigator')
+                this.props.navigation.navigate('DrawerNavigator' ,{
+                    email: email,
+                    password: password, 
+                  })
+
             }, 100)
         } catch(error){
             this.setState({

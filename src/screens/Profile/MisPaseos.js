@@ -6,7 +6,7 @@ import ModalDropdown from 'react-native-modal-dropdown';
 import MapView from 'react-native-maps'
 
 
-const modalOptionsModule = ['Modulo A', 'Modulo B', 'Modulo C', 'Modulo D', 'Modulo E', 'Modulo F', 'Modulo G' ];
+const modalOptionsModule = ['A', 'B', 'C', 'D', 'E', 'F', 'G' ];
 
 class MisPaseos extends React.Component { 
   static navigationOptions = ({navigation}) => {
@@ -17,10 +17,14 @@ class MisPaseos extends React.Component {
   constructor (){
     super()
     this.state = {
-        dataSource:[],
-        comentario:'',
+        dataSource:[], 
+        dataSourceMascotas:[],
         horario:'',
-        valorModulo: ''
+        nombreperro:'',
+        dia:'',
+        valorModulo: '',
+        valorDia: '',
+        valorMascota:''
     }
 }
   componentWillMount (){
@@ -28,15 +32,20 @@ class MisPaseos extends React.Component {
   }
   componentDidlMount (){
     this.postPaseo();
+    this.listarPaseos ();
   }
-  postPaseo(){
-    let collection = {}
-    collection.comentario=this.state.comentario,
-    collection.horario=this.state.horario 
+  // CREAR PASEO
+  postPaseo(correo,contrasena){
+    let collection = {} 
+    collection.horario=this.state.horario,
+    collection.nombreperro=this.state.nombreperro,
+    collection.dia=this.state.dia
+    collection.email=correo,
+    collection.password=contrasena
 
     console.warn(collection);
  
-    const url = 'http://192.168.1.159:3001/paseo/1 '
+    const url = 'localhost:3001/paseo/create'
     fetch(url, {
       method: 'POST',
       body: JSON.stringify(collection),
@@ -49,6 +58,27 @@ class MisPaseos extends React.Component {
     .catch((error) => { console.log(error) })
   
   }
+  // obtener mascota nombre para modal
+  listarMascota (correo,contrasena){
+    // 192.168.1.159  23.45.42.23
+      const url = 'http://192.168.1.159:3001/perro/all/'
+      fetch(url, {
+        method: 'GET',
+        headers: {
+          email: correo,
+          password: contrasena,
+        },
+      })
+      .then((response) => response.json() )
+      .then( ( responseJson)=> {
+          this.setState({
+            dataSourceMascotas: responseJson.data});
+      })
+      .catch((error) => {
+          console.log(error)
+      })
+  }
+  // HISTORIAL PASEOS
   listarPaseos (){
     // 192.168.1.159  23.45.42.23
       const url = 'http://192.168.1.159:3001/paseo/all/'
@@ -62,7 +92,20 @@ class MisPaseos extends React.Component {
           console.log(error)
       })
   }
+
+
+  // DEBUG
   _dropdown_modulo_onSelect(idx, value) {
+    // BUG: alert in a modal will auto dismiss and causes crash after reload and touch. @sohobloo 2016-12-1
+    //alert(`idx=${idx}, value='${value}'`);
+    console.debug(`idx=${idx}, value='${value}'`);
+  }
+  _dropdown_dia_onSelect(idx, value) {
+    // BUG: alert in a modal will auto dismiss and causes crash after reload and touch. @sohobloo 2016-12-1
+    //alert(`idx=${idx}, value='${value}'`);
+    console.debug(`idx=${idx}, value='${value}'`);
+  }
+  _dropdown_mascota_onSelect(idx, value) {
     // BUG: alert in a modal will auto dismiss and causes crash after reload and touch. @sohobloo 2016-12-1
     //alert(`idx=${idx}, value='${value}'`);
     console.debug(`idx=${idx}, value='${value}'`);
@@ -80,6 +123,20 @@ class MisPaseos extends React.Component {
                           defaultValue={this.state.valorModulo}
                           onSelect={(idx, value) => this._dropdown_modulo_onSelect(idx, value)}
             />
+            <ModalDropdown ref="dropdown_dia"
+                          style={styles.dia}
+                          options={modalOptionsDia}
+                          defaultIndex={-1}
+                          defaultValue={this.state.valorModulo}
+                          onSelect={(idx, value) => this._dropdown_dia_onSelect(idx, value)}
+            />
+            <ModalDropdown ref="dropdown_mascota"
+                          style={styles.mascota}
+                          options={modalOptionsMascota}
+                          defaultIndex={-1}
+                          defaultValue={this.state.valorMascota}
+                          onSelect={(idx, value) => this._dropdown_mascota_onSelect(idx, value)}
+            />
             <TouchableOpacity onPress={() => {
               this.refs.dropdown_modulo.select(0);
             }}>
@@ -89,7 +146,10 @@ class MisPaseos extends React.Component {
             </TouchableOpacity>
           </View>
         </View>
-        <Text> Listar Paseos</Text>
+        <TouchableOpacity onPress={()=> this.listarPaseos()}
+        > 
+          Listar Paseos
+        </TouchableOpacity>
         <View>
         </View>
       </View>

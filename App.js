@@ -21,6 +21,7 @@ import MisPaseos from './src/screens/Profile/MisPaseos';
 import DrawerNavigator from './src/screens/DrawerNavigator'; 
 import index from './src/app/index'
 
+ 
 export default class App extends React.Component {
   render() {
     return (

@@ -22,6 +22,7 @@ class MisMascotas extends React.Component {
   }
   componentDidlMount (){
     this.listarMascota();
+    this.postMascota();
   }
   listarMascota (correo,contrasena){
     // 192.168.1.159  23.45.42.23
@@ -57,14 +58,16 @@ class MisMascotas extends React.Component {
       }) 
     }
   }
-  postMascota(){
+  postMascota(correo,contrasena){
     let collection = {}
-    collection.nombre=this.state.nombre,
     collection.Chip=this.state.Chip,    
-    collection.raza=this.state.raza
+    collection.raza=this.state.raza,
+    collection.email=correo,
+    collection.password=contrasena,
+    collection.nombre=this.state.nombre
     console.warn(collection);
  
-    const url = 'http://192.168.1.159:3001/user/create/perro/1/'
+    const url = 'localhost:3001/user/create/dog/'
     fetch(url, {
       method: 'POST',
       body: JSON.stringify(collection),
@@ -139,7 +142,7 @@ class MisMascotas extends React.Component {
                 
                 /> 
                 <TouchableOpacity  style={styles.subBtn}
-                  onPress={()=> this.postMascota() }
+                  onPress={()=> this.postMascota(email,password) }
                 >
                   <Text> Crear Mascota </Text>
                 </TouchableOpacity> 
