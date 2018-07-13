@@ -15,10 +15,13 @@ export default class AppTabNavigator extends React.Component {
 
     static navigationOptions = ({navigation}) => {
         return {
+            title: "The Walking Doge " ,
             headerLeft:
-                <Ionicons name='md-menu' size={24} style={{paddingLeft:10}}
-                onPress={()=> navigation.openDrawer() }/> ,
-            title: "The Walking Doge " 
+                <Ionicons name='md-menu' 
+                        size={24} 
+                        style={{paddingLeft:10}}
+                        onPress={()=> navigation.openDrawer() }/> , 
+            headerStyle: { backgroundColor: '#89B43F' }
         }
     }
     render() {

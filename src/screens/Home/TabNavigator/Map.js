@@ -3,7 +3,8 @@ import {
   StyleSheet, 
   Text,
   AppRegistry,
-  FlatList
+  Dimensions,
+  View
 } from 'react-native';
 import { 
     Container, 
@@ -17,47 +18,68 @@ import {
 
 import MapView from 'react-native-maps'
  
-
-export default class Map extends React.Component {
-
-    render() {
-        return ( 
-                 
-                <Content style={styles.container} > 
-                    <MapView
-                        style={styles.map}
-                        initialRegion={{
-                        latitude: 37.78825,
-                        longitude: -122.4324,
-                        latitudeDelta: 0.0922,
-                        longitudeDelta: 0.0421,
-                    }}>
-                    <MapView.Marker
-                        coordinate={{
-                            latitude: 37.78825,
-                            longitude: -122.4324
-                        }}
-                    />
-
-                    </MapView> 
-                </Content> 
-            
-        );
+const width = Dimensions.get('window').width
+const height = Dimensions.get('window').height 
+class Map extends React.Component {
+    constructor (props) {
+      super(props)
+      this.state = {
+        isMapReady: false,
+        region: {
+          latitude: 47.6062,
+          longitude: 122.3321,
+          latitudeDelta: 0.02,
+          longitudeDelta: 0.02
+        }
+      }
     }
-}
+  
+    onMapLayout = () => {
+      this.setState({ isMapReady: true });
+    }
+  
+    render () {
+      return (
+        <View style={styles.container}>
+          <MapView
+            onPress={e => console.log(e.nativeEvent)}
+            style={styles.map}
+            provider='google'
+            mapType='standard'
+            showsScale
+            showsCompass
+            showsPointsOfInterest
+            showsBuildings
+            region={this.state.region}
+            onLayout={this.onMapLayout}
+          >
+            { this.state.isMapReady &&
+              <MapView.Marker
+                title={this.props.title}
+                coordinate={{
+                  latitude: this.state.region.latitude,
+                  longitude: this.state.region.longitude
+                }} />
+            }
+          </MapView>
+        </View>
+      )
+    }
+  
+  }
+
+export default Map;
 
 const styles = StyleSheet.create({ 
     containter:{ 
         flex:1
     },
-    map:{
-        left: 0,
-        right: 0,
-        top: 0,
-        bottom: 0,
-        position: 'absolute',
-    
-      }
+    map:{ 
+      flex: 1,
+      height: height,
+      width: width 
+    }
 });
 AppRegistry.registerComponent('App', () => App);
+ 
  

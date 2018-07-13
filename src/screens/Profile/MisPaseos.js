@@ -11,7 +11,8 @@ const modalOptionsModule = ['A', 'B', 'C', 'D', 'E', 'F', 'G' ];
 class MisPaseos extends React.Component { 
   static navigationOptions = ({navigation}) => {
     return { 
-        title: "Mis Paseos " 
+        title: "Mis Paseos ", 
+        headerStyle: { backgroundColor: '#89B43F' }
     }
 }
   constructor (){
@@ -173,6 +174,8 @@ class MisPaseos extends React.Component {
               Listar Paseo
           </Text> 
         </TouchableOpacity>
+        <ScrollView>
+        </ScrollView>
       </View>
     </View>
     );

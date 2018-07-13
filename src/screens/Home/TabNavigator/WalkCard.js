@@ -18,9 +18,8 @@ import {
     CardItem
   } from 'native-base'; 
  
-import Map from './Map';
-import { Ionicons } from '@expo/vector-icons'; 
-import {createStackNavigator} from 'react-navigation';  
+import Map from './Map';  
+
 class WalkCard extends React.Component { 
     constructor (){
         super()
@@ -50,11 +49,11 @@ class WalkCard extends React.Component {
                         source = {{uri: item.picture }} />
                     <View style={styles.flatContent}> 
                         <Text style={styles.itemHorario}>
-                            {item.name}
+                            {item.horario}
                         </Text>
 
                         <Text style={styles.itemComentario}>
-                            {item.about}
+                            {item.comentario}
                         </Text> 
                     </View> 
                 </TouchableOpacity>
@@ -78,8 +77,8 @@ class WalkCard extends React.Component {
     }
     componentDidlMount (){
 
-        const url = 'http://www.json-generator.com/api/json/get/cgiLPwERlu?indent=2'
-        //const url = 'http://192.168.1.159:3001/paseo/all/' 
+        // const url = 'http://www.json-generator.com/api/json/get/cgiLPwERlu?indent=2'
+        const url = 'http://192.168.1.159:3001/paseo/all/' 
         //fetch(url)
         fetch(url, {
             method: 'GET',
@@ -87,7 +86,7 @@ class WalkCard extends React.Component {
         .then((response) => response.json() )
         .then( ( responseJson)=> {
             this.setState({
-                dataSource: responseJson.receta_array});
+                dataSource: responseJson.data});
         })
         .catch((error) => {
             console.log(error)

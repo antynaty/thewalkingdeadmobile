@@ -43,7 +43,14 @@ class LoginForm extends React.Component {
         };
         firebase.initializeApp(config);
     }
-
+    renderSeparator = () => {
+        return ( 
+            <View
+                style={{ height:2, width:'100%', backgroundColor:'#8CC540' }}
+            >
+            </View>
+        )
+    }
     async signUp(){
         try {
             let collection = {}
@@ -127,47 +134,53 @@ class LoginForm extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-            <TextInput
-                placeholderTextColor="grey"
-                placeholder="nombre"
-                style={styles.input}
-                onChangeText={(nombre)=> this.setState({nombre})} />
-            <TextInput 
-                placeholderTextColor="grey"
-                placeholder="apellido"
-                style={styles.input}
-                onChangeText={(apellido)=> this.setState({apellido})}/>
-            <TextInput 
-                placeholderTextColor="grey"
-                placeholder="telefono"
-                style={styles.input}
-                onChangeText={(telefono)=> this.setState({telefono})}/>    
-            <TextInput 
-                placeholderTextColor="grey"
-                placeholder="Email"
-                style={styles.input}
-                onChangeText={(email)=> this.setState({email})}/>
-            <TextInput 
-                placeholderTextColor="grey"
-                placeholder="Contraseña"
-                style={styles.input}
-                password={true}
-                onChangeText={(password)=> this.setState({password})}/>    
-            <TouchableHighlight 
-                onPress={this.login}
-                style={[styles.loginButton, styles.buttonContainer]}>
-              <Text
-                style={[styles.buttonText]}>Login</Text>
-            </TouchableHighlight>
-            <TouchableHighlight
-                onPress={this.signUp}
-                style={[styles.loginButton, styles.buttonContainer]}>
-              <Text
-                style={[styles.buttonText]}>Registrarse</Text>
-            </TouchableHighlight>
+                <TextInput
+                    placeholderTextColor="grey"
+                    placeholder="Nombre"
+                    maxLength = {10}
+                    style={styles.input}
+                    onChangeText={(nombre)=> this.setState({nombre})} />
+                <TextInput 
+                    placeholderTextColor="grey"
+                    placeholder="Apellido"
+                    maxLength = {10}
+                    style={styles.input}
+                    onChangeText={(apellido)=> this.setState({apellido})}/>
+                <TextInput 
+                    placeholderTextColor="grey"
+                    placeholder="Telefono"
+                    maxLength = {10}
+                    style={styles.input}
+                    onChangeText={(telefono)=> this.setState({telefono})}/>    
+                <TextInput 
+                    placeholderTextColor="grey"
+                    placeholder="Email"
+                    maxLength = {20} 
+                    style={styles.input}
+                    onChangeText={(email)=> this.setState({email})}/>
+                <TextInput 
+                    placeholderTextColor="grey"
+                    placeholder="Contraseña"
+                    style={styles.input}
+                    secureTextEntry={true}
+                    onChangeText={(password)=> this.setState({password})}/>    
+                <TouchableOpacity 
+                    onPress={this.login}
+                    style={styles.buttonContainer }>
+                <Text
+                    style={ styles.buttonText }>Login</Text>
+                </TouchableOpacity>
+                {this.renderSeparator()}
+                <TouchableOpacity
+                    onPress={this.signUp}
+                    style={ styles.buttonContainer }>
+                    <Text style={ styles.buttonText }>
+                        Registrarse
+                    </Text>
+                </TouchableOpacity>
           </View>
-            );
-        }
+        );
+    }
 }
  
 export default LoginForm;

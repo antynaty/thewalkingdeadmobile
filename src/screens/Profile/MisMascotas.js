@@ -8,6 +8,12 @@ import {
   Content,  
 } from 'native-base'; 
 class MisMascotas extends React.Component { 
+  static navigationOptions = ({navigation}) => {
+    return { 
+        title: "Mis Mascotas ",
+        headerStyle: { backgroundColor: '#89B43F' }
+    }
+}
   constructor (){
     super()
     this.state = {
@@ -91,11 +97,11 @@ class MisMascotas extends React.Component {
                 </Text>
  
                 <Text style={styles.itemTextAbout}>
-                    {item.Chip}
+                    Chip: {item.Chip}
                 </Text>
  
                 <Text style={styles.itemTextAbout}>
-                    {item.raza}
+                    Raza: {item.raza}
                 </Text>
             </View> 
         </View>
@@ -114,11 +120,13 @@ class MisMascotas extends React.Component {
       const email = navigation.getParam('email','NO-EMAIL');
       const password = navigation.getParam('password','NO-PASSWORD');
     return ( 
-      <Container style={styles.container}> 
-              <Text> Mis Mascotas</Text>
+      <Container style={styles.container}>  
 
-              <TouchableOpacity   underlayColor='#fff' onPress={()=> this.listarMascota(email,password) }  >
-                  <Text> Listar Mascota </Text>
+              <TouchableOpacity   underlayColor='white' 
+                                  onPress={()=> this.listarMascota(email,password) } 
+                                  style={styles.subBtn}
+                                  >
+                  <Text style={{ color:'white'}}> Listar Mascota </Text>
 
               </TouchableOpacity>
               {/* {this.listMascota}  */}
@@ -130,21 +138,21 @@ class MisMascotas extends React.Component {
               />  
               <View style={styles.formMascota}>
                 <Text> Crear Mascotas</Text> 
-                <TextInput placeholder="Nombre" placeholderTextColor="white"
+                <TextInput placeholder="Nombre" placeholderTextColor="black"
                   onChangeText={(text)=>this.valoresMascota(text,'nombre')} 
                 /> 
-                <TextInput placeholder="Chip"  placeholderTextColor="white"
+                <TextInput placeholder="Chip"  placeholderTextColor="black"
                   onChangeText={(text)=>this.valoresMascota(text,'Chip')}
                 
                 /> 
-                <TextInput placeholder="Raza"  placeholderTextColor="white"
+                <TextInput placeholder="Raza"  placeholderTextColor="black"
                   onChangeText={(text)=>this.valoresMascota(text,'raza')}
                 
                 /> 
                 <TouchableOpacity  style={styles.subBtn}
                   onPress={()=> this.postMascota(email,password) }
                 >
-                  <Text> Crear Mascota </Text>
+                  <Text style={{ color:'white'}}> Crear Mascota </Text>
                 </TouchableOpacity> 
               </View>
               <Content>
@@ -163,14 +171,16 @@ const styles = StyleSheet.create({
     flex: 1,  
   },
   formMascota:{ 
-    backgroundColor: '#8CC540'
+    backgroundColor: '#9EE384'
   },
   subBtn:{
-    backgroundColor:'#014601',
+    backgroundColor:'#6F8F37',
     justifyContent:'center',
     alignItems:'center',
     height:40
   },
-  showMascota:{
+  itemTextName:{
+    textAlign: 'center',
+    fontSize: 21,
   }
 });
