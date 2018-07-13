@@ -33,6 +33,7 @@
     "react-native-maps": "*",
     "react-native-modal-dropdown": "^0.6.2",
     "react-native-picker": "^4.3.7",
+    "react-native-picker-select": "^4.0.0",
     "react-navigation": "^2.3.1"
   }
 }

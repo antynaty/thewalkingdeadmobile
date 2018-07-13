@@ -1,4 +1,4 @@
-import React from 'react';
+/*import React from 'react';
 import { StyleSheet,
   Text, 
   View, 
@@ -13,6 +13,10 @@ import ModalDropdown from 'react-native-modal-dropdown';
 
 const modalOptionsModule = ['A', 'B', 'C', 'D', 'E', 'F', 'G' ];
 
+
+import Picker from 'react-native-picker';
+
+/*
 class MisPaseos extends React.Component { 
   static navigationOptions = ({navigation}) => {
     return { 
@@ -42,6 +46,8 @@ class MisPaseos extends React.Component {
   }
   // CREAR PASEO
   postPaseo(correo,contrasena){
+
+    
     let collection = {} 
     collection.horario=this.state.horario,
     collection.nombreperro=this.state.nombreperro,
@@ -67,7 +73,7 @@ class MisPaseos extends React.Component {
   // obtener mascota nombre para modal
   listarMascota (correo,contrasena){
     // 192.168.1.159  23.45.42.23
-      const url = 'http://192.168.0.13:3001/perro/all/'
+      const url = 'http://192.168.0.20:3001/perro/all/'
       fetch(url, {
         method: 'GET',
         headers: {
@@ -86,8 +92,8 @@ class MisPaseos extends React.Component {
   }
   // HISTORIAL PASEOS
   listarPaseos (){
-    // 192.168.1.159  23.45.42.23
-      const url = 'http://192.168.0.13:3001/paseo/all/'
+    // 192.168.1.159  23.45.42.23  192.168.0.20
+      const url = 'http://192.168.0.20:3001/paseo/all/'
       fetch(url)
       .then((response) => response.json() )
       .then( ( responseJson)=> {
@@ -197,11 +203,263 @@ class MisPaseos extends React.Component {
     );
   }
 } 
+*/
 
-export default MisPaseos;
- 
+/**
+ * Bootstrap of PickerTest
+ */
+
+import React from 'react';
+import { Alert, Text, TextInput, StyleSheet, View } from 'react-native';
+import RNPickerSelect from 'react-native-picker-select';
+
+export default class MisPaseos extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.inputRefs = {};
+
+        this.state = {
+            Horario: undefined,
+            items: [
+                {
+                    label: 'A',
+                    value: 'A',
+                },
+                {
+                    label: 'B',
+                    value: 'B',
+                },
+                {
+                    label: 'C',
+                    value: 'C',
+                },
+                {
+                  label: 'D',
+                  value: 'D',
+              },
+              {
+                  label: 'E',
+                  value: 'E',
+              },
+              {
+                  label: 'F',
+                  value: 'F',
+              },
+            ],
+            Dias: undefined,
+            items2: [
+                {
+                    label: 'Lunes',
+                    value: 'Lunes',
+                },
+                {
+                    label: 'Martes',
+                    value: 'Martes',
+                },
+                {
+                    label: 'Miercoles',
+                    value: 'Miercoles',
+                },
+                {
+                  label: 'Jueves ',
+                  value: 'Jueves',
+              },
+              {
+                label: 'Viernes',
+                value: 'Viernes',
+            },
+            {
+              label: 'Sabado',
+              value: 'Sabado',
+          },
+          {
+            label: 'Domingo',
+            value: 'Domingo',
+        },
+            ],
+
+            Perros: undefined,
+            items3: [
+                {
+                    label: '1',
+                    value: '1',
+                },
+                {
+                    label: '2',
+                    value: '2',
+                },
+                {
+                    label: '3',
+                    value: '3',
+                },
+                
+            ],
+        };
+    }
+
+    componentDidMount() {
+        // if the component is using the optional `value` prop, the parent
+        // has the abililty to both set the initial value and also update it
+        setTimeout(() => {
+            this.setState({
+                Horario: 'G',
+            });
+        }, 1000);
+
+        // parent can also update the `items` prop
+        setTimeout(() => {
+            this.setState({
+                items: this.state.items.concat([{ value: 'G', label: 'G' }]),
+            });
+        }, 2000);
+    }
+
+    render() {
+        return (
+            <View style={styles.container}>
+                <Text>Nombre</Text>
+                <TextInput
+                    ref={(el) => {
+                        this.inputRefs.name = el;
+                    }}
+                    returnKeyType="next"
+                    enablesReturnKeyAutomatically
+                    onSubmitEditing={() => {
+                        this.inputRefs.picker.togglePicker();
+                    }}
+                    style={pickerSelectStyles.inputIOS}
+                    blurOnSubmit={false}
+                />
+
+
+
+                                <View style={{ paddingVertical: 5 }} />
+
+<Text>Cantidad de Perros</Text>
+<RNPickerSelect
+    placeholder={{
+        label: 'Selecciona cantidad de perros...',
+        value: null,
+    }}
+    items={this.state.items3}
+    onValueChange={(value) => {
+        this.setState({
+            Perros: value,
+        });
+    }}
+    onUpArrow={() => {
+        this.inputRefs.name.focus();
+    }}
+    onDownArrow={() => {
+        this.inputRefs.picker2.togglePicker();
+    }}
+    style={{ ...pickerSelectStyles }}
+    value={this.state.Perros}
+    ref={(el) => {
+        this.inputRefs.picker = el;
+    }}
+/>
+
+                <View style={{ paddingVertical: 5 }} />
+
+                <Text>Elegir Horario</Text>
+                <RNPickerSelect
+                    placeholder={{
+                        label: 'Selecciona Horario...',
+                        value: null,
+                    }}
+                    items={this.state.items}
+                    onValueChange={(value) => {
+                        this.setState({
+                            Horario: value,
+                        });
+                    }}
+                    onUpArrow={() => {
+                        this.inputRefs.name.focus();
+                    }}
+                    onDownArrow={() => {
+                        this.inputRefs.picker2.togglePicker();
+                    }}
+                    style={{ ...pickerSelectStyles }}
+                    value={this.state.Horario}
+                    ref={(el) => {
+                        this.inputRefs.picker = el;
+                    }}
+                />
+
+                <View style={{ paddingVertical: 5 }} />
+
+                <Text>Dia de tu paseo</Text>
+                <RNPickerSelect
+                    placeholder={{
+                        label: 'Seleccione Dia...',
+                        value: null,
+                    }}
+                    items={this.state.items2}
+                    onValueChange={(value) => {
+                        this.setState({
+                            Dias: value,
+                        });
+                    }}
+                    onUpArrow={() => {
+                        this.inputRefs.picker.togglePicker();
+                    }}
+                    onDownArrow={() => {
+                        this.inputRefs.company.focus();
+                    }}
+                    style={{ ...pickerSelectStyles }}
+                    value={this.state.Dias}
+                    ref={(el) => {
+                        this.inputRefs.picker2 = el;
+                    }}
+                />
+
+                <View style={{ paddingVertical: 5 }} />
+
+                <Text>Comentarios</Text>
+                <TextInput
+                    ref={(el) => {
+                        this.inputRefs.company = el;
+                    }}
+                    returnKeyType="go"
+                    enablesReturnKeyAutomatically
+                    style={pickerSelectStyles.inputIOS}
+                    onSubmitEditing={() => {
+                        Alert.alert('Success', 'Form submitted', [{ text: 'Okay', onPress: null }]);
+                    }}
+                />
+            </View>
+        );
+    }
+}
 
 const styles = StyleSheet.create({
+    container: {
+        paddingTop: 30,
+        backgroundColor: '#fff',
+        justifyContent: 'center',
+        paddingHorizontal: 10,
+    },
+});
+
+const pickerSelectStyles = StyleSheet.create({
+    inputIOS: {
+        fontSize: 16,
+        paddingTop: 13,
+        paddingHorizontal: 10,
+        paddingBottom: 12,
+        borderWidth: 1,
+        borderColor: 'gray',
+        borderRadius: 4,
+        backgroundColor: 'white',
+        color: 'black',
+    },
+});
+
+ 
+
+/*const styles = StyleSheet.create({
   container: {
     flex: 1,  
   },
@@ -235,4 +493,4 @@ const styles = StyleSheet.create({
     alignItems:'center',
     height:40
   },
-});
+});*/
