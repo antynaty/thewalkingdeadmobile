@@ -32,7 +32,7 @@ class MisMascotas extends React.Component {
   }
   listarMascota (correo,contrasena){
     // 192.168.1.159  23.45.42.23
-      const url = 'http://192.168.1.159:3001/perro/all/'
+      const url = 'http://192.168.0.13:3001/perro/all/'
       fetch(url, {
         method: 'GET',
         headers: {
@@ -73,7 +73,7 @@ class MisMascotas extends React.Component {
     collection.nombre=this.state.nombre
     console.warn(collection);
  
-    const url = 'localhost:3001/user/create/dog/'
+    const url = 'http://192.168.0.13:3001/user/create/dog/'
     fetch(url, {
       method: 'POST',
       body: JSON.stringify(collection),
@@ -137,7 +137,7 @@ class MisMascotas extends React.Component {
                     ItemSeparatorComponent={this.renderSeparator}
               />  
               <View style={styles.formMascota}>
-                <Text> Crear Mascotas</Text> 
+                <Text style={styles.titulo}  > Crea una mascota </Text> 
                 <TextInput placeholder="Nombre" placeholderTextColor="black"
                   onChangeText={(text)=>this.valoresMascota(text,'nombre')} 
                 /> 
@@ -182,5 +182,12 @@ const styles = StyleSheet.create({
   itemTextName:{
     textAlign: 'center',
     fontSize: 21,
-  }
+  },
+  titulo:{
+    textAlign: 'center',
+    fontSize: 21,
+    marginTop: 5,
+    opacity:0.9,
+    backgroundColor: '#8CC540'
+  }, 
 });

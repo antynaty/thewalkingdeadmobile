@@ -35,12 +35,13 @@ class WalkCard extends React.Component {
         return (
             <View style={styles.flatItem}>
                 <Text> Hola 3</Text>
-                <TouchableOpacity onPress={() => {
+                {/* <TouchableOpacity onPress={() => {
                     this.props.navigation.navigate('Map' ,{
                         email: email,
                         password: password, 
                     })
-                }}>>
+                }}>> */}
+                <Text> pase la wea de navegacion</Text>
                     <Image style={styles.imagen1}
                         source = {{uri: item.picture }} />
                     <Image style={styles.itemHorario}
@@ -56,7 +57,7 @@ class WalkCard extends React.Component {
                             {item.comentario}
                         </Text> 
                     </View> 
-                </TouchableOpacity>
+                {/* </TouchableOpacity> */}
                 
                 
                
@@ -74,11 +75,7 @@ class WalkCard extends React.Component {
     }
     componentWillMount (){
 
-    }
-    componentDidlMount (){
-
-        // const url = 'http://www.json-generator.com/api/json/get/cgiLPwERlu?indent=2'
-        const url = 'http://192.168.1.159:3001/paseo/all/' 
+        const url = 'http://192.168.0.13:3001/paseo/all/' 
         //fetch(url)
         fetch(url, {
             method: 'GET',
@@ -91,6 +88,11 @@ class WalkCard extends React.Component {
         .catch((error) => {
             console.log(error)
         })   
+
+    }
+    componentDidlMount (){
+
+       
     }
     render() {
         

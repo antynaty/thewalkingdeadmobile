@@ -1,10 +1,15 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native'; 
+import { StyleSheet,
+  Text, 
+  View, 
+  TextInput, 
+  TouchableOpacity,
+  ScrollView,
+  FlatList
+} from 'react-native'; 
 import { stringify } from 'querystring'; 
+
 import ModalDropdown from 'react-native-modal-dropdown';
-
-import MapView from 'react-native-maps'
-
 
 const modalOptionsModule = ['A', 'B', 'C', 'D', 'E', 'F', 'G' ];
 
@@ -62,7 +67,7 @@ class MisPaseos extends React.Component {
   // obtener mascota nombre para modal
   listarMascota (correo,contrasena){
     // 192.168.1.159  23.45.42.23
-      const url = 'http://192.168.1.159:3001/perro/all/'
+      const url = 'http://192.168.0.13:3001/perro/all/'
       fetch(url, {
         method: 'GET',
         headers: {
@@ -82,7 +87,7 @@ class MisPaseos extends React.Component {
   // HISTORIAL PASEOS
   listarPaseos (){
     // 192.168.1.159  23.45.42.23
-      const url = 'http://192.168.1.159:3001/paseo/all/'
+      const url = 'http://192.168.0.13:3001/paseo/all/'
       fetch(url)
       .then((response) => response.json() )
       .then( ( responseJson)=> {
@@ -93,7 +98,35 @@ class MisPaseos extends React.Component {
           console.log(error)
       })
   }
+  renderItem = ({item}) => {
+    return (
 
+        <View style={styles.flatItem}> 
+            <View style={styles.flatContent}>
+ 
+                <Text style={styles.itemTextName}>
+                    {item.horario}
+                </Text>
+ 
+                <Text style={styles.itemTextAbout}>
+                    {item.dia}
+                </Text>
+ 
+                <Text style={styles.itemTextAbout}>
+                    {item.estado}
+                </Text>
+            </View> 
+        </View>
+    ) 
+  }
+  renderSeparator = () => {
+      return ( 
+          <View
+              style={{ height:2, width:'100%', backgroundColor:'white' }}
+          >
+          </View>
+      )
+  } 
 
   // DEBUG
   _dropdown_modulo_onSelect(idx, value) {
@@ -124,15 +157,7 @@ class MisPaseos extends React.Component {
                           defaultValue={this.state.valorModulo}
                           onSelect={(idx, value) => this._dropdown_modulo_onSelect(idx, value)}
             />
-            <TouchableOpacity onPress={() => {
-              this.refs.dropdown_modulo.select(0);
-            }}>
-              <Text style={styles.textButton}>
-                Crear Paseo
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.cell}>
+  
             <ModalDropdown ref="dropdown_dia"
                         style={styles.dia}
                         options={modalOptionsModule}
@@ -140,15 +165,7 @@ class MisPaseos extends React.Component {
                         defaultValue={this.state.valorModulo}
                         onSelect={(idx, value) => this._dropdown_dia_onSelect(idx, value)}
             />
-            <TouchableOpacity onPress={() => {
-              this.refs.dropdown_dia.select(0);
-            }}>
-              <Text style={styles.textButton}>
-                Crear Paseo
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.cell}>
+              
             <ModalDropdown ref="dropdown_mascota"
                           style={styles.mascota}
                           options={modalOptionsModule}
@@ -156,23 +173,22 @@ class MisPaseos extends React.Component {
                           defaultValue={this.state.valorMascota}
                           onSelect={(idx, value) => this._dropdown_mascota_onSelect(idx, value)}
             />
-            <TouchableOpacity onPress={() => {
-              this.refs.dropdown_mascota.select(0);
-            }}>
-              <Text style={styles.textButton}>
-                Crear Paseo
-              </Text>
-            </TouchableOpacity>
-
-          </View>
+           </View>   
         </View>
 
       <View>
-        <TouchableOpacity onPress={()=> this.listarPaseos()}
+        <TouchableOpacity style={styles.subBtn}
+                      onPress={()=> this.listarPaseos()}
         > 
-          <Text style={styles.titulo} >
+          <Text style={{ color:'white', fontSize:21}} >
               Listar Paseo
           </Text> 
+          <FlatList  
+                    data = {this.state.dataSource}
+                    renderItem={this.renderItem}
+                    keyExtractor={(item, index) => index}
+                    ItemSeparatorComponent={this.renderSeparator}
+              /> 
         </TouchableOpacity>
         <ScrollView>
         </ScrollView>
@@ -212,13 +228,11 @@ const styles = StyleSheet.create({
   dropdown_6: {
     flex: 1,
     left: 8,
-  },
-  map:{
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-    position: 'absolute',
-
+  },  
+  subBtn:{
+    backgroundColor:'#6F8F37',
+    justifyContent:'center',
+    alignItems:'center',
+    height:40
   },
 });

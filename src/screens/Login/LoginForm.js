@@ -61,7 +61,7 @@ class LoginForm extends React.Component {
             collection.password=this.state.password
             console.warn(collection);
  
-            const url = 'http://192.168.1.159:3001/user/'
+            const url = 'localhost:3001/user/'
             fetch(url, {
             method: 'POST',
             body: JSON.stringify(collection),
